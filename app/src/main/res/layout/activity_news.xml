@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.NewsActivity">
 
-    <!--<FrameLayout
+    <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,20 +16,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <fragment
-            android:id="@+id/newsNavHostFragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/navigationHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             app:defaultNavHost="true"
             app:navGraph="@navigation/news_nav_graph" />
 
-    </FrameLayout>-->
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="?actionBarSize"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -50,6 +50,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    val nav_version = "2.7.7"
+    implementation(libs.androidx.navigation.fragment)
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+
     val lifecycle_version = "2.8.4"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
