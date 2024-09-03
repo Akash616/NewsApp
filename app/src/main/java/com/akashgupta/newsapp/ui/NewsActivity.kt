@@ -29,6 +29,10 @@ class NewsActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
 
+        /* Whenever we request with retrofit we will get the answer as a JSON string,
+        * JSON is just a way to convert complex objects in a simple string that you can
+        * send over the network and then extract the complex object again.*/
+
     }
 
     override fun onDestroy() {
