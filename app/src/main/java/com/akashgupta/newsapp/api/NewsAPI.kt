@@ -1,6 +1,6 @@
 package com.akashgupta.newsapp.api
 
-import com.akashgupta.newsapp.NewsResponse
+import com.akashgupta.newsapp.model.NewsResponse
 import com.akashgupta.newsapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
