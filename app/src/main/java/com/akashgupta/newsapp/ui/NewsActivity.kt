@@ -5,12 +5,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.akashgupta.newsapp.R
 import com.akashgupta.newsapp.databinding.ActivityNewsBinding
+import com.akashgupta.newsapp.db.ArticleDatabase
+import com.akashgupta.newsapp.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
 
@@ -19,10 +22,16 @@ class NewsActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+    lateinit var viewModel: NewsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val newsRepository = NewsRepository(ArticleDatabase(this))
+        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
 
         //connect bottomNavigationView with Navigation components
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navigationHostFragment) as NavHostFragment

@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import com.akashgupta.newsapp.R
 import com.akashgupta.newsapp.databinding.FragmentSavedNewsBinding
 import com.akashgupta.newsapp.databinding.FragmentSearchNewsBinding
+import com.akashgupta.newsapp.ui.NewsActivity
+import com.akashgupta.newsapp.ui.NewsViewModel
 
 class SearchNewsFragment : Fragment() {
 
     private var _binding: FragmentSearchNewsBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +24,13 @@ class SearchNewsFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //we have to access to the viewModel created in the NewsActivity
+        viewModel = (activity as NewsActivity).viewModel
     }
 
     override fun onDestroy() {
