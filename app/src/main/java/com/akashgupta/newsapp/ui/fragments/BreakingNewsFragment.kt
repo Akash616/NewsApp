@@ -43,6 +43,7 @@ class BreakingNewsFragment : Fragment() {
         setupRecyclerView()
 
         newsAdapter.setOnItemClickListener {
+            Log.d("MyTesting","Article -> "+it.url)
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }

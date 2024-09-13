@@ -1,6 +1,7 @@
 package com.akashgupta.newsapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.akashgupta.newsapp.R
 import com.akashgupta.newsapp.databinding.FragmentArticleBinding
 import com.akashgupta.newsapp.ui.NewsActivity
 import com.akashgupta.newsapp.ui.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment() {
 
@@ -44,6 +46,12 @@ class ArticleFragment : Fragment() {
             webViewClient = WebViewClient()
             loadUrl(article.url)
         }
+
+        binding.fab.setOnClickListener {
+            viewModel.saveArticle(article)
+            Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onDestroy() {
