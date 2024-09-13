@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akashgupta.newsapp.R
 import com.akashgupta.newsapp.adapters.NewsAdapter
@@ -48,6 +49,16 @@ class SearchNewsFragment : Fragment() {
         viewModel = (activity as NewsActivity).viewModel
 
         setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_searchNewsFragment_to_articleFragment,
+                bundle
+            )
+        }
 
         //Handle search functionality
         /*Whenever we type something in our search box then we want to add a little delay, because
