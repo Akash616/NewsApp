@@ -1,14 +1,12 @@
 package com.akashgupta.newsapp.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
-import com.akashgupta.newsapp.R
 import com.akashgupta.newsapp.databinding.FragmentArticleBinding
 import com.akashgupta.newsapp.ui.NewsActivity
 import com.akashgupta.newsapp.ui.NewsViewModel
@@ -44,7 +42,7 @@ class ArticleFragment : Fragment() {
         binding.webView.apply {
             //page will load inside this webview and don't load standard browser of the phone
             webViewClient = WebViewClient()
-            loadUrl(article.url)
+            article.url?.let { loadUrl(it) }
         }
 
         binding.fab.setOnClickListener {
