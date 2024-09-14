@@ -131,12 +131,12 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun hideErrorMessage() {
-        binding.itemErrorMessage.tvErrorMessage.visibility = View.INVISIBLE
+        binding.itemErrorMessage.root.visibility = View.INVISIBLE
         isError = false
     }
 
     private fun showErrorMessage(message: String) {
-        binding.itemErrorMessage.tvErrorMessage.visibility = View.VISIBLE
+        binding.itemErrorMessage.root.visibility = View.VISIBLE
         binding.itemErrorMessage.tvErrorMessage.text = message
         isError = true
     }
