@@ -61,6 +61,7 @@ class BreakingNewsFragment : Fragment() {
             when(response){
                 is Resource.Success -> {
                     hideProgressBar()
+                    hideErrorMessage()
                     response.data?.let { newsResponse ->  //means data is not equal to null
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2 //+2 bec. last page of our response will always be empty
@@ -74,6 +75,7 @@ class BreakingNewsFragment : Fragment() {
                     hideProgressBar()
                     response.message?.let { message ->
                         Toast.makeText(activity, "An error occurred: $message", Toast.LENGTH_LONG).show()
+                        showErrorMessage(message)
                     }
                 }
                 is Resource.Loading -> {
@@ -81,6 +83,11 @@ class BreakingNewsFragment : Fragment() {
                 }
             }
         })
+
+        binding.itemErrorMessage.btnRetry.setOnClickListener {
+            viewModel.getBreakingNews("us")
+        }
+
     }
 
     private fun hideProgressBar() {
@@ -93,8 +100,20 @@ class BreakingNewsFragment : Fragment() {
         isLoading = true
     }
 
+    private fun hideErrorMessage() {
+        binding.itemErrorMessage.tvErrorMessage.visibility = View.INVISIBLE
+        isError = false
+    }
+
+    private fun showErrorMessage(message: String) {
+        binding.itemErrorMessage.tvErrorMessage.visibility = View.VISIBLE
+        binding.itemErrorMessage.tvErrorMessage.text = message
+        isError = true
+    }
+
     /*Next Step is to actually detect when we completely scroll down so then we want to paginate our request
     then we want to load the next page.*/
+    var isError = false
     var isLoading = false
     var isLastPage = false
     var isScrolling = false
@@ -119,12 +138,13 @@ class BreakingNewsFragment : Fragment() {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
+            val isNoErrors = !isError
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
 
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning
+            val shouldPaginate = isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning
                     && isTotalMoreThanVisible && isScrolling
 
             if (shouldPaginate) {
